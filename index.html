@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
 
     <!-- Theme style  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -62,6 +62,10 @@
         
     <div class="fh5co-loader"></div>
     <audio id="background-music" src="images/wedding.mp3" autoplay loop preload="auto"></audio>
+    <button id="music-toggle" class="music-toggle" type="button" aria-label="Play background music" aria-pressed="false">
+        <i class="icon-music" aria-hidden="true"></i>
+        <span>Play music</span>
+    </button>
     
     <div id="page">
     <nav class="fh5co-nav" role="navigation">
@@ -133,7 +137,7 @@
                                     <p>We are thrilled to celebrate our engagement with you on <b>11th December 2026</b>.</p>
                                     <p dir="rtl">728H+7JG، طريق مصطفى كامل أمام مستشفى صدر المعمورة، الملاحة، الناصرية، ثالث المنتزه، محافظة الإسكندرية 5523116</p>
                                     <p><a class="btn btn-default btn-sm" href="https://www.google.com/maps/search/?api=1&amp;query=728H%2B7JG%2C+Mustafa+Kamel+Road%2C+El-Mamoura+Chest+Hospital%2C+El-Malahah%2C+El-Nasiriya%2C+Alexandria%2C+Egypt" target="_blank" rel="noopener noreferrer">Open location in Google Maps</a></p>
-                                    <iframe title="Map to the engagement venue" src="https://maps.google.com/maps?output=embed&amp;q=728H%2B7JG%2C+Mustafa+Kamel+Road%2C+El-Mamoura+Chest+Hospital%2C+El-Malahah%2C+El-Nasiriya%2C+Alexandria%2C+Egypt&amp;z=15" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    <iframe class="event-map" title="Map to the engagement venue" src="https://maps.google.com/maps?output=embed&amp;q=728H%2B7JG%2C+Mustafa+Kamel+Road%2C+El-Mamoura+Chest+Hospital%2C+El-Malahah%2C+El-Nasiriya%2C+Alexandria%2C+Egypt&amp;z=15" width="560" height="315" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +216,7 @@
     <div class="container">
         <div class="row animate-box">
             <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                <h2>أرسل تهنئة للعروسين 💌</h2>
+                <h2>أرسل تهنئة للعروسين </h2>
 				<p>اترك رسالة تهنئة للعروسين لتخلد هذه اللحظة المميزة ✨</p>
             </div>
         </div>
@@ -240,7 +244,6 @@
 document.getElementById('telegramForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    // ⚠️ استبدل التوكن والـ Chat ID ببياناتك
     const botToken = "9167509018:AAGUUioC34JNRomlRXLojpLAAZdw608ECws"; 
     const chatId = "-1004476513425";
     
@@ -318,5 +321,34 @@ document.getElementById('telegramForm').addEventListener('submit', function(e) {
     <!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script> -->
     <script src="js/simplyCountdown.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        (function () {
+            var audio = document.getElementById("background-music");
+            var toggle = document.getElementById("music-toggle");
+            var label = toggle.querySelector("span");
+            var icon = toggle.querySelector("i");
+
+            function updateToggle() {
+                var isPlaying = !audio.paused && !audio.ended;
+                label.textContent = isPlaying ? "Pause music" : "Play music";
+                toggle.setAttribute("aria-label", isPlaying ? "Pause background music" : "Play background music");
+                toggle.setAttribute("aria-pressed", String(isPlaying));
+                icon.className = isPlaying ? "icon-pause" : "icon-music";
+            }
+
+            audio.addEventListener("play", updateToggle);
+            audio.addEventListener("pause", updateToggle);
+            toggle.addEventListener("click", function () {
+                if (audio.paused) {
+                    audio.play().catch(updateToggle);
+                } else {
+                    audio.pause();
+                }
+            });
+
+            audio.play().catch(updateToggle);
+            updateToggle();
+        })();
+    </script>
     </body>
 </html>

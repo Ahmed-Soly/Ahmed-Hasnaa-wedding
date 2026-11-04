@@ -401,6 +401,21 @@ h1, h2, h3, h4, h5, h6, figure {
   #fh5co-event .display-tc {
     height: inherit;
   }
+  #fh5co-event {
+    padding: 4em 0;
+  }
+  #fh5co-event .display-t,
+  #fh5co-event .display-tc {
+    display: block;
+    width: 100%;
+  }
+  #fh5co-event .col-md-10,
+  #fh5co-event .col-md-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 #fh5co-counter .event-wrap,
 #fh5co-event .event-wrap {
@@ -449,6 +464,35 @@ h1, h2, h3, h4, h5, h6, figure {
   width: 50%;
   float: left;
   margin-bottom: 30px;
+}
+#fh5co-event .event-map {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 4px;
+}
+@media screen and (max-width: 768px) {
+  #fh5co-event .event-wrap {
+    box-sizing: border-box;
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 24px 18px;
+  }
+  #fh5co-event .event-wrap .event-col {
+    float: none;
+    width: 100%;
+    margin-bottom: 14px;
+  }
+  #fh5co-event .event-wrap p {
+    overflow-wrap: anywhere;
+  }
+  #fh5co-event .event-map {
+    height: 220px;
+  }
 }
 
 #fh5co-counter {
@@ -1908,6 +1952,46 @@ form label {
   height: 100%;
   z-index: 9999;
   background: url(../images/loader.gif) center no-repeat #fff;
+}
+
+.music-toggle {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 9998;
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 6px;
+  background: rgba(67, 52, 55, 0.88);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.music-toggle:hover,
+.music-toggle:focus-visible {
+  background: #bb5c68;
+  color: #fff;
+}
+.music-toggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.music-toggle i {
+  font-size: 17px;
+}
+@media screen and (max-width: 480px) {
+  .music-toggle {
+    left: 12px;
+    bottom: 12px;
+  }
 }
 
 .js .animate-box {
