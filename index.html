@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
 
     <!-- Theme style  -->
-    <link rel="stylesheet" href="css/style.css?v=2">
+    <link rel="stylesheet" href="css/style.css?v=3">
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -327,6 +327,7 @@ document.getElementById('telegramForm').addEventListener('submit', function(e) {
             var toggle = document.getElementById("music-toggle");
             var label = toggle.querySelector("span");
             var icon = toggle.querySelector("i");
+            var playPending = false;
 
             function updateToggle() {
                 var isPlaying = !audio.paused && !audio.ended;
@@ -336,17 +337,54 @@ document.getElementById('telegramForm').addEventListener('submit', function(e) {
                 icon.className = isPlaying ? "icon-pause" : "icon-music";
             }
 
+            function removeStartListeners() {
+                document.removeEventListener("pointerdown", startOnInteraction, true);
+                document.removeEventListener("touchstart", startOnInteraction, true);
+                document.removeEventListener("wheel", startOnInteraction, true);
+                document.removeEventListener("keydown", startOnInteraction, true);
+            }
+
+            function playAudio() {
+                if (!audio.paused || playPending) {
+                    return;
+                }
+
+                playPending = true;
+                audio.play().then(function () {
+                    playPending = false;
+                }).catch(function () {
+                    playPending = false;
+                    updateToggle();
+                });
+            }
+
+            function startOnInteraction(event) {
+                if (toggle.contains(event.target) || !audio.paused) {
+                    return;
+                }
+
+                playAudio();
+            }
+
             audio.addEventListener("play", updateToggle);
+            audio.addEventListener("playing", function () {
+                playPending = false;
+                removeStartListeners();
+            }, { once: true });
             audio.addEventListener("pause", updateToggle);
             toggle.addEventListener("click", function () {
                 if (audio.paused) {
-                    audio.play().catch(updateToggle);
+                    playAudio();
                 } else {
                     audio.pause();
                 }
             });
 
-            audio.play().catch(updateToggle);
+            document.addEventListener("pointerdown", startOnInteraction, true);
+            document.addEventListener("touchstart", startOnInteraction, { capture: true, passive: true });
+            document.addEventListener("wheel", startOnInteraction, { capture: true, passive: true });
+            document.addEventListener("keydown", startOnInteraction, true);
+            playAudio();
             updateToggle();
         })();
     </script>

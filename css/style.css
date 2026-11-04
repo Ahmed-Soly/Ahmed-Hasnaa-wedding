@@ -1006,6 +1006,12 @@ form label {
   padding: 7em 0;
   clear: both;
 }
+#fh5co-gallery {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+#fh5co-event {
+  margin-bottom: 36px;
+}
 @media screen and (max-width: 768px) {
   #fh5co-testimonial,
   #fh5co-services,
@@ -1017,6 +1023,9 @@ form label {
   #fh5co-gallery,
   .fh5co-section {
     padding: 3em 0;
+  }
+  #fh5co-event {
+    margin-bottom: 24px;
   }
 }
 
