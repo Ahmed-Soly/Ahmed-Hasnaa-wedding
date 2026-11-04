@@ -21,6 +21,10 @@
 
 	var offcanvasMenu = function() {
 
+		if (!$('.menu-1 > ul, .menu-2 > ul').length) {
+			return;
+		}
+
 		$('#page').prepend('<div id="fh5co-offcanvas" />');
 		$('#page').prepend('<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle fh5co-nav-white"><i></i></a>');
 		var clone1 = $('.menu-1 > ul').clone();
